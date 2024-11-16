@@ -1,0 +1,36 @@
+class circle{
+float radius = 0.0f;
+synchronized void output(){
+System.out.println("Output method for displaying area of circle ");
+if(radius == 0.0){
+System.out.println("Watting for Input Radius ");
+try{
+wait();
+}
+catch(Exception e){}
+}
+System.out.println("Area = "+3.14f*radius*radius);
+}
+synchronized void input(float r){
+System.out.println("Inputing radius "+r);
+radius = r ;
+System.out.println("radius value recieved ");
+notify();
+}
+}
+class Threadcommunication{
+public static void main(String agrs[]){
+circle c = new circle();
+new Thread (){
+public void run(){
+c.output();
+}
+}.start();
+
+new Thread (){
+public void run(){
+c.input(2.5f);
+}
+}.start();
+}
+}
